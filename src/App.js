@@ -24,7 +24,6 @@ const GlobalStyle = createGlobalStyle`
   }
   ul {
     display: flex;
-    justify-content: center;
     gap: 2.5rem;
     flex-wrap: wrap;
     list-style: none;

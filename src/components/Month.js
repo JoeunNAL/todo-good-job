@@ -13,6 +13,9 @@ const H2 = styled.h2`
   margin-top: 4.8rem;
   margin-bottom: 3.5rem;
 `;
+const Ul = styled.ul`
+  justify-content: center;
+`;
 
 const GoalContainer = styled.li`
   width: 250px;
@@ -47,7 +50,7 @@ const Month = () => {
   return (
     <Main>
       <H2>2022 Goals</H2>
-      <ul>
+      <Ul>
         {monthGoals.map((goal) => {
           return (
             <GoalContainer key={goal.id}>
@@ -56,7 +59,7 @@ const Month = () => {
             </GoalContainer>
           );
         })}
-      </ul>
+      </Ul>
     </Main>
   );
 };
