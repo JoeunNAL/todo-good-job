@@ -28,6 +28,18 @@ const GlobalStyle = createGlobalStyle`
     flex-wrap: wrap;
     list-style: none;
   }
+  .double_size{
+    font-size: 1.5rem;
+  }
+  .font_purple{
+    color: #ac79f0
+  }
+  .font_orange{
+    color:#ff9a62;
+  }
+  .font_lime{
+    color:#aed063
+  }
 `;
 
 const Container = styled.div`

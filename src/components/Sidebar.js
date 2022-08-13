@@ -9,7 +9,7 @@ const Nav = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 2.5rem;
 `;
 
 const Div = styled.div`
@@ -30,9 +30,15 @@ const SideBar = () => {
       <Div>7DAYs</Div>
       <Logo></Logo>
       {/* 로고 <img></img> */}
-      <Link to="/login">Mypage</Link>
-      <Link to="/">Daily</Link>
-      <Link to="/month">Month</Link>
+      <Link to="/login">
+        <i className="fa-solid fa-right-to-bracket double_size font_orange"></i>
+      </Link>
+      <Link to="/">
+        <i className="fa-solid fa-list-check double_size font_purple"></i>
+      </Link>
+      <Link to="/month">
+        <i className="fa-solid fa-calendar-check double_size font_lime"></i>
+      </Link>
     </Nav>
   );
 };
