@@ -15,18 +15,14 @@ const GlobalStyle = createGlobalStyle`
   }
   :root {
     --basic:#4b4854;
-    --list-color-mint:#ceede8;
-    --list-color-grey:#f5f5f5;
-    --list-color-pink:#f6c8d3;
-    --list-color-orange:#f9dcaf;
-    --list-color-purple:#d7c9f1;
-    --list-color-lime:#e1f2b4;
-  }
-  ul {
-    display: flex;
-    gap: 2.5rem;
-    flex-wrap: wrap;
-    list-style: none;
+    --mid-grey:#acabab;
+    --bg-mint:#ceede8;
+    --bg-grey:#f5f5f5;
+    --bg-pink:#f6c8d3;
+    --bg-orange:#f9dcaf;
+    --bg-purple:#d7c9f1;
+    --bg-lime:#e1f2b4;
+    --dash: 2px var(--mid-grey) dashed;
   }
   .double_size{
     font-size: 1.5rem;
@@ -40,6 +36,10 @@ const GlobalStyle = createGlobalStyle`
   .font_lime{
     color:#aed063
   }
+  .font_white{
+    color:#ffffff
+  }
+
 `;
 
 const Container = styled.div`
