@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
     color: var(--basic);
   }
   :root {
-    --basic:#4b4854;
+    --basic:#646464;
     --mid-grey:#acabab;
     --bg-mint:#ceede8;
     --bg-grey:#f5f5f5;
@@ -23,6 +23,7 @@ const GlobalStyle = createGlobalStyle`
     --bg-purple:#d7c9f1;
     --bg-lime:#e1f2b4;
     --dash: 2px var(--mid-grey) dashed;
+    --shadow: 0 4px 5px rgba(0, 0, 0, 0.4);
   }
   .double_size{
     font-size: 1.5rem;
