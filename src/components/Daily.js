@@ -38,7 +38,6 @@ const SetToday = styled.div`
     background-color: transparent;
     border-style: none;
     /* border-radius: 0.4rem; */
-
     font-size: 2rem;
     /* padding: 0 rem; */
     flex-grow: 1;
@@ -66,43 +65,56 @@ const AddBtn = styled.button`
     cursor: pointer;
   }
 `;
+let idNum = 3;
+
 const Daily = () => {
-  let idNum = 1;
-  const task = { id: idNum, tag: "", goal: "" };
+  const task = { id: idNum, tag: "", task: "" };
   const [todos, setTodos] = useState([task]);
-  // const []
+  const [todayGoal, setTodayGoal] = useState("");
+  const [serverData, setServerData] = useState([]);
+
   useEffect(() => {
-    // fetch("http://localhost:3001/todayTasks", {
-    //   method: "POST",
-    //   headers: { "Contents-Type": "application/json" },
-    //   body: JSON.stringify(task),
-    // })
-    //   .then((res) => {
-    //     res.json();
-    //     // setTodos(response);
-    //   })
-    //   .then((d) => {
-    //     console.log(d);
-    //   });
+    fetch("http://localhost:3001/todayGoal", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setServerData(data[0]); //[{id: 1, createdAt: '20220817', todayGoal: '', tasks: Array(2)}]
+        setTodos(data[0].tasks);
+        setTodayGoal(data[0].todayGoal);
+      });
   }, []);
+
+  const handleTodayGoal = () => {};
+
   const handleAdd = () => {
     idNum++;
-    setTodos([...todos, task]);
-    // fetch("http://localhost:3001/todayTasks", {
-    //   method: "POST",
-    //   headers: { "Contents-Type": "application/json" },
-    //   body: JSON.stringify(task),
-    // }).then((response) => {
-    //   setTodos(response);
+    setTodos([...serverData.tasks, task]);
+    // fetch("http://localhost:3001/todayGoal/1/", {
+    //   method: "PATCH",
+    //   headers: {
+    //     "Contents-Type": "application/json",
+    //     "Access-Control-Allow-Origin": "http://localhost:3001",
+    //   },
+    //   body: JSON.stringify(),
+    // }).then((res) => {
+    //   if (!res.ok) {
+    //     throw new Error("에러발생");
+    //   }
     // });
   };
+
   return (
     <Main>
       <GoalReminder />
       <DailyGoalContainer>
         <SetToday>
           <i className="fa-solid fa-thumbtack"></i>
-          <input placeholder="fill in your goal for today"></input>
+          <input
+            placeholder="fill in your goal for today"
+            value={todayGoal}
+            onChange={handleTodayGoal}
+          ></input>
         </SetToday>
         <ul>
           {todos.map((todo) => {

@@ -1,5 +1,6 @@
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { monthGoals } from "../data";
+// import { monthGoals } from "../data";
 
 const Section = styled.section`
   /* background-color: orange; */
@@ -66,21 +67,40 @@ const ColumDiv = styled.div`
 
 const GoalReminder = () => {
   const date = new Date();
-  const localMonth = date.toLocaleDateString()[6];
+  const localMonth = date.toLocaleString("en-US", { month: "long" });
   const localYear = date.toLocaleDateString().slice(0, 4);
   const localDate = date.toLocaleDateString().slice(9, 11);
-  // console.log(localMonth, localYear, localDate);
+  // console.log("GoalReminder에 있는", date.toLocaleDateString()); // 2022. 8. 17.
+  const [beforeReq, setBeforReq] = useState(true);
+  let monthGoals;
+  useEffect(() => {
+    fetch("http://localhost:3001/monthGoals", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((monthDatas) => {
+        monthGoals = monthDatas;
+        // setBeforReq(false);
+        console.log("리멤버컴포넌트", monthGoals[date.getMonth()].monthlyGoal);
+      })
+      .then(() => {
+        setBeforReq(false);
+      });
+  }, [monthGoals]);
 
   return (
     <Section>
       <DateContainer>
         <ColumDiv>
           <div className="fontS_08">{localYear}</div>
-          <div>{monthGoals[localMonth - 1].month}</div>
+          <div>{localMonth}</div>
         </ColumDiv>
         <div className="localDate">{localDate}</div>
       </DateContainer>
-      <div className="reminder">{monthGoals[localMonth - 1].monthlyGoal}</div>
+      <div className="reminder">
+        fill in your Month Goal in other page.
+        {/* {beforeReq ? "설정해주세요" : monthGoals[date.getMonth()].monthlyGoal} */}
+      </div>
     </Section>
   );
 };

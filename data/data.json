@@ -1,0 +1,91 @@
+{
+  "users": [
+    {
+      "id": "epjdf123@hlksfa.com",
+      "password": "12345asdfg"
+    }
+  ],
+  "monthGoals": [
+    {
+      "id": 1,
+      "month": "January",
+      "monthlyGoal": "포스트맨요청"
+    },
+    {
+      "id": 2,
+      "month": "February",
+      "monthlyGoal": ""
+    },
+    {
+      "id": 3,
+      "month": "March",
+      "monthlyGoal": ""
+    },
+    {
+      "id": 4,
+      "month": "April",
+      "monthlyGoal": ""
+    },
+    {
+      "id": 5,
+      "month": "May",
+      "monthlyGoal": ""
+    },
+    {
+      "id": 6,
+      "month": "June",
+      "monthlyGoal": ""
+    },
+    {
+      "id": 7,
+      "month": "July",
+      "monthlyGoal": "goal in July"
+    },
+    {
+      "id": 8,
+      "month": "August",
+      "monthlyGoal": "try to make toy project"
+    },
+    {
+      "id": 9,
+      "month": "September",
+      "monthlyGoal": ""
+    },
+    {
+      "id": 10,
+      "month": "October",
+      "monthlyGoal": ""
+    },
+    {
+      "id": 11,
+      "month": "November",
+      "monthlyGoal": ""
+    },
+    {
+      "id": 12,
+      "month": "December",
+      "monthlyGoal": ""
+    }
+  ],
+  "todayGoal": [
+    {
+      "id": 1,
+      "createdAt": "20220817",
+      "todayGoal": "오늘의 목표 설정하기",
+      "tasks": [
+        {
+          "id": 1,
+          "tag": "자기개발",
+          "task": "버튼구현하기",
+          "isChecked":false
+        },
+        {
+          "id": 2,
+          "tag": "?",
+          "task": "서버 관련구현",
+          "isChecked":false
+        }
+      ]
+    }
+  ]
+}

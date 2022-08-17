@@ -38,7 +38,7 @@ export const monthGoals = [
   {
     id: 8,
     month: "August",
-    monthlyGoal: "",
+    monthlyGoal: "try to make toy project",
   },
   {
     id: 9,

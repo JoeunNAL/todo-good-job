@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { DropdownMenu } from "./DropdownMenu";
 
@@ -10,19 +10,9 @@ const TaskContainer = styled.li`
   position: relative;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow);
 `;
 
-const TodayGoal = styled.input`
-  background-color: transparent;
-  height: 70%;
-  font-size: 1.5rem;
-  border: var(--dash);
-  margin: 0 10px;
-  border-radius: 1.3rem;
-  /* word-break: break-all; */
-  /* overflow: auto; */
-`;
 const CheckBtn = styled.button`
   background-color: var(--basic);
   color: white;
@@ -65,25 +55,86 @@ const Tag = styled.input`
   text-align: center;
 `;
 
+const TaskView = styled.div`
+  /* background-color: antiquewhite; */
+  height: 5rem;
+  height: 70%;
+  /* height: 100%; */
+  font-size: 1.5rem;
+  margin: 0 1rem;
+  border-radius: 1.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  word-break: break-all;
+
+  cursor: pointer;
+`;
+
+const InputMyTask = styled.input`
+  /* background-color: transparent; */
+  height: 70%;
+  font-size: 1.5rem;
+  border: var(--dash);
+  margin: 0 1rem;
+  border-radius: 1.3rem;
+  /* overflow: auto; */
+`;
+
+const TaskInput = ({ task, setTodos }) => {
+  const [myGoal, setMyGoal] = useState(task.task);
+  const [taskEditMode, setTaskEditMode] = useState(false);
+  const thisInputEl = useRef(null);
+  // console.log(taskEditMode);
+
+  useEffect(() => {
+    if (taskEditMode) {
+      thisInputEl.current.focus();
+    }
+  }, [taskEditMode]);
+
+  const handleTaskBlur = () => {
+    setTaskEditMode(false);
+  };
+
+  const handleTask = (e) => {
+    setMyGoal(e.target.value);
+  };
+  return (
+    <>
+      {taskEditMode ? (
+        <InputMyTask
+          value={myGoal}
+          ref={thisInputEl}
+          onBlur={handleTaskBlur}
+          onChange={handleTask}
+          placeholder="fill in your task"
+        />
+      ) : (
+        <TaskView
+          onClick={() => {
+            setTaskEditMode(true);
+          }}
+        >
+          {myGoal}
+        </TaskView>
+      )}
+    </>
+  );
+};
+
 const Todo = ({ task, setTodos }) => {
   const [myTag, setMyTag] = useState(task.tag);
-  const [myGoal, setMyGoal] = useState(task.goal);
-  const [onCheck, setOnCheck] = useState(false);
+  // const [myTask, setMyTask] = useState(task.task);
+  const [isOnCheck, setOnCheck] = useState(false);
   const [isOpen, SetisOpen] = useState(false);
 
-  const handleGoal = (e) => {
-    setMyGoal(e.target.value);
+  const handleCheck = (e) => {
+    setOnCheck(!isOnCheck);
   };
   const handleTag = (e) => {
     setMyTag(e.target.value);
   };
-  const handleCheck = (e) => {
-    setOnCheck(!onCheck);
-    // 배열 이동 추가 작업
-  };
-  useEffect(() => {
-    console.log(onCheck);
-  }, [myGoal, onCheck]);
 
   return (
     <TaskContainer>
@@ -101,14 +152,10 @@ const Todo = ({ task, setTodos }) => {
           </i>
         </SettingBtn>
       </Menu>
-      <TodayGoal
-        value={myGoal}
-        onChange={handleGoal}
-        placeholder="fill in your task"
-      ></TodayGoal>
+      <TaskInput task={task}></TaskInput>
 
       <CheckBtn onClick={handleCheck}>
-        {onCheck ? <i className="fa-solid fa-check font_white"></i> : null}
+        {isOnCheck ? <i className="fa-solid fa-check font_white"></i> : null}
       </CheckBtn>
     </TaskContainer>
   );
