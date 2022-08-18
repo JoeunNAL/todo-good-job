@@ -69,6 +69,7 @@ let idNum = 3;
 
 const Daily = () => {
   const task = { id: idNum, tag: "", task: "" };
+  console.log(task);
   const [todos, setTodos] = useState([task]);
   const [todayGoal, setTodayGoal] = useState("");
   const [serverData, setServerData] = useState([]);
@@ -85,11 +86,14 @@ const Daily = () => {
       });
   }, []);
 
-  const handleTodayGoal = () => {};
+  const handleTodayGoal = (e) => {
+    setTodayGoal(e.target.value);
+  };
 
   const handleAdd = () => {
     idNum++;
     setTodos([...serverData.tasks, task]);
+    console.log(todos)
     // fetch("http://localhost:3001/todayGoal/1/", {
     //   method: "PATCH",
     //   headers: {
