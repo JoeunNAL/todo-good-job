@@ -71,53 +71,45 @@ const GoalView = styled.div`
 
 const GoalInput = ({ goal, setMyGoals }) => {
   const inputEl = useRef(null);
-  const [isEditMode, setEditMode] = useState(false);
   const [newValue, setNewValue] = useState(goal.monthlyGoal);
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
-    if (isEditMode) {
+    if (editMode) {
       inputEl.current.focus();
     }
-  }, [isEditMode]);
+  }, [editMode]);
 
-  const handleBlur = () => {
-    setEditMode(false);
-  };
   const handleChange = (e) => {
-    console.log(e.target.value);
-    console.log("newValue", newValue);
-    // console.log("이벤트", goal.id);
     setNewValue(e.target.value);
-    // setNewValue()
-    // fetch(`http://localhost:3001/monthGoals/${goal.id}`, {
-    //   method: "PATCH",
-    //   headers: {
-    //     "Contents-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     id: goal.id,
-    //     month: "May",
-    //     monthlyGoal: "newValue",
-    //   }),
-    // })
-    //   .then((res) => {
-    //     res.json();
-    //     console.log(res);
-    //   })
-    //   .then((d) => {
-    //     console.log(d);
-    //   });
-    // setMyGoals();
+  };
+
+  const handleSubmit = (e) => {
+    fetch(`http://localhost:3001/monthGoals/${goal.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        // "Access-Control-Allow-Origin": "http://localhost:3001",
+      },
+      body: JSON.stringify({
+        monthlyGoal: newValue,
+      }),
+    })
+      .then(() => {
+        setEditMode(false);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("Month submit error", error);
+      });
   };
   return (
     <>
-      {isEditMode ? (
-        <Input
-          value={newValue}
-          ref={inputEl}
-          onBlur={handleBlur}
-          onChange={handleChange}
-        />
+      {editMode ? (
+        <>
+          <Input value={newValue} ref={inputEl} onChange={handleChange} />
+          <button onClick={handleSubmit}>수정</button>
+        </>
       ) : (
         <GoalView
           onClick={() => {
@@ -144,16 +136,18 @@ const Month = () => {
   return (
     <Main>
       <H2>2022 Goals</H2>
-      <ul>
-        {myGoals.map((goal) => {
-          return (
-            <GoalContainer key={goal.id}>
-              <ThisMonth>{`${goal.month.slice(0, 3)}.`}</ThisMonth>
-              <GoalInput goal={goal} setMyGoals={setMyGoals}></GoalInput>
-            </GoalContainer>
-          );
-        })}
-      </ul>
+      {myGoals !== undefined ? (
+        <ul>
+          {myGoals.map((goal) => {
+            return (
+              <GoalContainer key={goal.id}>
+                <ThisMonth>{`${goal.month.slice(0, 3)}.`}</ThisMonth>
+                <GoalInput goal={goal} setMyGoals={setMyGoals}></GoalInput>
+              </GoalContainer>
+            );
+          })}
+        </ul>
+      ) : null}
     </Main>
   );
 };
