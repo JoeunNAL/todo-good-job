@@ -71,17 +71,15 @@ const ColumDiv = styled.div`
 `;
 
 const GoalReminder = ({ date }) => {
-  const [reminder, setRemider] = useState("");
+  const [reminder, setReminder] = useState("");
   const localMonth = date.toLocaleString("en-US", { month: "long" });
   const localYear = date.toLocaleDateString().slice(0, 4);
   const localDate = date.toLocaleDateString().slice(9, 11);
   useEffect(() => {
-    fetch("http://localhost:3001/monthGoals", {
-      method: "GET",
-    })
+    fetch("http://localhost:3001/monthGoals")
       .then((res) => res.json())
       .then((monthDatas) => {
-        setRemider(monthDatas[date.getMonth()].monthlyGoal);
+        setReminder(monthDatas[date.getMonth()].monthlyGoal);
       })
       .catch((e) => {
         throw new Error(e);
