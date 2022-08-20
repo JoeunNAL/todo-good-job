@@ -68,8 +68,9 @@ const AddBtn = styled.button`
 let idNum = 3;
 
 const Daily = () => {
+  const date = new Date();
   const task = { id: idNum, tag: "", task: "" };
-  console.log(task);
+  // console.log(task);
   const [todos, setTodos] = useState([task]);
   const [todayGoal, setTodayGoal] = useState("");
   const [serverData, setServerData] = useState([]);
@@ -93,7 +94,7 @@ const Daily = () => {
   const handleAdd = () => {
     idNum++;
     setTodos([...serverData.tasks, task]);
-    console.log(todos)
+    console.log(todos);
     // fetch("http://localhost:3001/todayGoal/1/", {
     //   method: "PATCH",
     //   headers: {
@@ -110,7 +111,7 @@ const Daily = () => {
 
   return (
     <Main>
-      <GoalReminder />
+      <GoalReminder date={date} />
       <DailyGoalContainer>
         <SetToday>
           <i className="fa-solid fa-thumbtack"></i>
