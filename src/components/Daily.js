@@ -76,9 +76,7 @@ const Daily = () => {
   const [serverData, setServerData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/todayGoal", {
-      method: "GET",
-    })
+    fetch("http://localhost:3001/todayGoal")
       .then((res) => res.json())
       .then((data) => {
         setServerData(data[0]); //[{id: 1, createdAt: '20220817', todayGoal: '', tasks: Array(2)}]
@@ -93,7 +91,7 @@ const Daily = () => {
 
   const handleAdd = () => {
     idNum++;
-    setTodos([...serverData.tasks, task]);
+    setTodos([...todos, task]);
     console.log(todos);
     // fetch("http://localhost:3001/todayGoal/1/", {
     //   method: "PATCH",
