@@ -21,6 +21,11 @@ const Section = styled.section`
     padding: 0.7rem 1.5rem;
     font-size: 1.8rem;
   }
+  .emptyed {
+    color: white;
+    /* text-shadow: -.5px 0 var(--mid-grey), 0 1px var(--mid-grey),
+      1px 0 var(--mid-grey), 0 -.5px var(--mid-grey); */
+  }
   .localDate {
     /* color: var(--font-orange); */
     font-size: 2.8rem;
@@ -65,28 +70,21 @@ const ColumDiv = styled.div`
   }
 `;
 
-const GoalReminder = () => {
-  const date = new Date();
+const GoalReminder = ({ date }) => {
+  const [reminder, setReminder] = useState("");
   const localMonth = date.toLocaleString("en-US", { month: "long" });
   const localYear = date.toLocaleDateString().slice(0, 4);
   const localDate = date.toLocaleDateString().slice(9, 11);
-  // console.log("GoalReminder에 있는", date.toLocaleDateString()); // 2022. 8. 17.
-  const [beforeReq, setBeforReq] = useState(true);
-  let monthGoals;
   useEffect(() => {
-    fetch("http://localhost:3001/monthGoals", {
-      method: "GET",
-    })
+    fetch("http://localhost:3001/monthGoals")
       .then((res) => res.json())
       .then((monthDatas) => {
-        monthGoals = monthDatas;
-        // setBeforReq(false);
-        console.log("리멤버컴포넌트", monthGoals[date.getMonth()].monthlyGoal);
+        setReminder(monthDatas[date.getMonth()].monthlyGoal);
       })
-      .then(() => {
-        setBeforReq(false);
+      .catch((e) => {
+        throw new Error(e);
       });
-  }, [monthGoals]);
+  }, []);
 
   return (
     <Section>
@@ -97,9 +95,8 @@ const GoalReminder = () => {
         </ColumDiv>
         <div className="localDate">{localDate}</div>
       </DateContainer>
-      <div className="reminder">
-        fill in your Month Goal in other page.
-        {/* {beforeReq ? "설정해주세요" : monthGoals[date.getMonth()].monthlyGoal} */}
+      <div className={reminder === "" ? "reminder emptyed" : "reminder"}>
+        {reminder === "" ? "Your month goal is empty" : reminder}
       </div>
     </Section>
   );

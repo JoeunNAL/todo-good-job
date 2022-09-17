@@ -68,16 +68,15 @@ const AddBtn = styled.button`
 let idNum = 3;
 
 const Daily = () => {
+  const date = new Date();
   const task = { id: idNum, tag: "", task: "" };
-  console.log(task);
+  // console.log(task);
   const [todos, setTodos] = useState([task]);
   const [todayGoal, setTodayGoal] = useState("");
   const [serverData, setServerData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/todayGoal", {
-      method: "GET",
-    })
+    fetch("http://localhost:3001/todayGoal")
       .then((res) => res.json())
       .then((data) => {
         setServerData(data[0]); //[{id: 1, createdAt: '20220817', todayGoal: '', tasks: Array(2)}]
@@ -92,8 +91,8 @@ const Daily = () => {
 
   const handleAdd = () => {
     idNum++;
-    setTodos([...serverData.tasks, task]);
-    console.log(todos)
+    setTodos([...todos, task]);
+    console.log(todos);
     // fetch("http://localhost:3001/todayGoal/1/", {
     //   method: "PATCH",
     //   headers: {
@@ -110,7 +109,7 @@ const Daily = () => {
 
   return (
     <Main>
-      <GoalReminder />
+      <GoalReminder date={date} />
       <DailyGoalContainer>
         <SetToday>
           <i className="fa-solid fa-thumbtack"></i>
