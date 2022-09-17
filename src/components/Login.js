@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 const LoginContainer = styled.main`
   background-color: var(--bg-grey);
   height: 100vh;
@@ -42,8 +42,9 @@ const InputGroup = styled.div`
     /* border-radius: 0.3rem; */
     /* outline: 2px solid #efefef; */
     width: 240px;
-    height: 2rem;
+    height: 2.5rem;
     font-size: 1.2rem;
+    padding: 12px 12px;
   }
   .inputLabel {
     color: var(--mid-grey);
