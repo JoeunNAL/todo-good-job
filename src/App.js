@@ -1,10 +1,9 @@
-import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
-import styled, { createGlobalStyle } from "styled-components";
-import Month from "./components/Month";
-import Daily from "./components/Daily";
-import Sidebar from "./components/Sidebar";
-import Login from "./components/Login";
+import { Route, Routes } from 'react-router-dom';
+import styled, { createGlobalStyle } from 'styled-components';
+import Month from './components/Month';
+import Daily from './components/Daily';
+import Sidebar from './components/Sidebar';
+import Login from './components/Login';
 
 const GlobalStyle = createGlobalStyle`
   *{
@@ -22,6 +21,9 @@ const GlobalStyle = createGlobalStyle`
     --bg-orange:#f9dcaf;
     --bg-purple:#d7c9f1;
     --bg-lime:#e1f2b4;
+    --font-orange:#ff9a62;
+    --font-purple:#ac79f0;
+    --font-lime:#aed063;
     --dash: 2px var(--mid-grey) dashed;
     --shadow: 0 4px 5px rgba(0, 0, 0, 0.4);
   }
@@ -29,13 +31,13 @@ const GlobalStyle = createGlobalStyle`
     font-size: 1.5rem;
   }
   .font_purple{
-    color: #ac79f0
+    color: var(--font-purple);
   }
   .font_orange{
-    color:#ff9a62;
+    color: var(--font-orange);
   }
   .font_lime{
-    color:#aed063
+    color: var( --font-lime)
   }
   .font_white{
     color:#ffffff
